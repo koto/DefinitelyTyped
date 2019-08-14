@@ -37,18 +37,28 @@ interface TrustedTypePolicyOptions {
 }
 
 declare class TrustedTypePolicyFactory {
-    createPolicy<Keys extends keyof TrustedTypePolicyOptions>(
-        name: string,
-        policyOptions: Pick<TrustedTypePolicyOptions, Keys>,
-        expose?: boolean,
-        ): Pick<TrustedTypePolicy, 'name'|Keys>;
-    getExposedPolicy(name: string): TrustedTypePolicy|null;
-    getPolicyNames(): string[];
+  createPolicy<Keys extends keyof TrustedTypePolicyOptions>(
+    name: string,
+    policyOptions: Pick<TrustedTypePolicyOptions, Keys>,
+    expose?: boolean,
+  ): Pick<TrustedTypePolicy, 'name' | Keys>;
+  /**
+   * @deprecated
+   */
+  getExposedPolicy(name: string): TrustedTypePolicy | null;
 
-    isHTML(value: any): value is TrustedHTML;
-    isScript(value: any): value is TrustedScript;
-    isScriptURL(value: any): value is TrustedScriptURL;
-    isURL(value: any): value is TrustedURL;
+  getPolicyNames(): string[];
+
+  isHTML(value: any): value is TrustedHTML;
+  isScript(value: any): value is TrustedScript;
+  isScriptURL(value: any): value is TrustedScriptURL;
+  isURL(value: any): value is TrustedURL;
+  emptyHTML: TrustedHTML;
 }
 
+/**
+ * @deprecated Use trustedTypes instead.
+ */
 declare const TrustedTypes: TrustedTypePolicyFactory;
+
+declare const trustedTypes: TrustedTypePolicyFactory;

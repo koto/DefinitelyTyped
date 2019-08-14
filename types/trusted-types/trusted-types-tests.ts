@@ -6,28 +6,28 @@ const policy = {
 };
 
 // $ExpectType string[]
-TrustedTypes.getPolicyNames();
-TrustedTypes.createPolicy('default', policy, true);
+trustedTypes.getPolicyNames();
+trustedTypes.createPolicy('default', policy, true);
 // $ExpectType TrustedTypePolicy | null
-TrustedTypes.getExposedPolicy('default');
+trustedTypes.getExposedPolicy('default');
 
-const trustedTypes = TrustedTypes.createPolicy('test', policy);
+const testPolicy = trustedTypes.createPolicy('test', policy);
 
 // $ExpectType string
-const policyName = trustedTypes.name;
+const policyName = testPolicy.name;
 // $ExpectType TrustedHTML
-trustedTypes.createHTML('');
+testPolicy.createHTML('');
 // $ExpectType TrustedScript
-trustedTypes.createScript('');
+testPolicy.createScript('');
 // $ExpectType TrustedScriptURL
-trustedTypes.createScriptURL('');
+testPolicy.createScriptURL('');
 // $ExpectType TrustedURL
-trustedTypes.createURL('');
+testPolicy.createURL('');
 
-const htmlOnlyPolicy = TrustedTypes.createPolicy('htmlOnly', {
-    createHTML: (html: string) => {
-        return html;
-    },
+const htmlOnlyPolicy = trustedTypes.createPolicy('htmlOnly', {
+  createHTML: (html: string) => {
+    return html;
+  },
 });
 
 // $ExpectType string
@@ -38,10 +38,17 @@ const html = htmlOnlyPolicy.createHTML('');
 const script = htmlOnlyPolicy.createScript('');
 
 // $ExpectType boolean
-TrustedTypes.isHTML(html);
+trustedTypes.isHTML(html);
 // $ExpectType boolean
-TrustedTypes.isScript(html);
+trustedTypes.isScript(html);
 // $ExpectType boolean
-TrustedTypes.isScriptURL(html);
+trustedTypes.isScriptURL(html);
 // $ExpectType boolean
-TrustedTypes.isURL(html);
+trustedTypes.isURL(html);
+
+// $ExpectType TrustedHTML
+trustedTypes.emptyHTML;
+
+// Testing the legacy factory name.
+// $ExpectType TrustedTypePolicyFactory
+TrustedTypes;
